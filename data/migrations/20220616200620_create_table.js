@@ -18,13 +18,15 @@ exports.up = function (knex) {
                 .unsigned()
                 .references('recipe_id')
                 .inTable('recipes');
-            tbl.varchar('recipe_name', 128);
+            
         })
 
         .createTable('ingredients', tbl => {
             tbl.increments('ingredient_id');
             tbl.varchar('ingredient_name', 128).unique().notNullable();
-            tbl.integer('quantity').notNullable().unsigned()
+            tbl.decimal('quantity').notNullable()
+            tbl.integer('step_id').unsigned().references('step_id').inTable('steps')
+          
         })
 
 
